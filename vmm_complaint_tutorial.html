@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WhatsApp Bot - कंप्लेंट कैसे करें</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans','Noto Sans Devanagari',sans-serif;
+  background:linear-gradient(135deg,#E8F5E9 0%,#C8E6C9 100%);
+  padding:10px;
+}
+.lang-bar{
+  background:white;
+  padding:12px 20px;
+  border-radius:12px;
+  margin-bottom:15px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.lang-bar select{
+  flex:1;
+  padding:10px 15px;
+  border:2px solid #25D366;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:600;
+  color:#25D366;
+  background:white;
+  cursor:pointer;
+}
+.container{
+  max-width:800px;
+  margin:0 auto;
+  background:white;
+  border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.15);
+  overflow:hidden;
+}
+.header{
+  background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
+  color:white;
+  padding:30px 20px;
+  text-align:center;
+}
+.header h1{
+  font-size:32px;
+  margin-bottom:10px;
+  font-weight:700;
+}
+.header p{
+  font-size:18px;
+  opacity:0.95;
+}
+.step{
+  padding:30px 20px;
+  border-bottom:3px dashed #E0E0E0;
+}
+.step:last-child{border-bottom:none}
+.step-num{
+  display:inline-block;
+  width:50px;
+  height:50px;
+  background:#25D366;
+  color:white;
+  border-radius:50%;
+  font-size:24px;
+  font-weight:bold;
+  line-height:50px;
+  text-align:center;
+  margin-bottom:15px;
+}
+.step h2{
+  font-size:24px;
+  margin-bottom:20px;
+  color:#128C7E;
+}
+.phone-mockup{
+  background:#000;
+  border-radius:30px;
+  padding:10px;
+  margin:20px auto;
+  max-width:350px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+.screen{
+  background:#ECE5DD;
+  border-radius:20px;
+  overflow:hidden;
+}
+.whatsapp-header{
+  background:#075E54;
+  color:white;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.chat-bubble{
+  background:#DCF8C6;
+  padding:12px 15px;
+  border-radius:10px;
+  margin:10px;
+  font-size:15px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  position:relative;
+}
+.chat-bubble.bot{
+  background:white;
+  margin-right:60px;
+}
+.chat-bubble.user{
+  background:#DCF8C6;
+  margin-left:60px;
+  text-align:right;
+}
+.action-box{
+  background:#FFF3CD;
+  border-left:5px solid #FFC107;
+  padding:15px 20px;
+  margin:20px 0;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:600;
+}
+.action-box.green{
+  background:#D4EDDA;
+  border-left-color:#28A745;
+}
+.icon{
+  font-size:60px;
+  text-align:center;
+  margin:20px 0;
+}
+.example-nums{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+  gap:15px;
+  margin:20px 0;
+}
+.num-box{
+  background:#25D366;
+  color:white;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+  font-size:32px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+.num-box:hover{
+  transform:scale(1.1);
+  box-shadow:0 8px 20px rgba(37,211,102,0.4);
+}
+.tip{
+  background:#E3F2FD;
+  border-left:5px solid #2196F3;
+  padding:15px;
+  margin:15px 0;
+  border-radius:8px;
+}
+.btn-whatsapp{
+  display:block;
+  background:#25D366;
+  color:white;
+  padding:20px 40px;
+  border-radius:15px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  text-decoration:none;
+  margin:30px auto;
+  max-width:400px;
+  box-shadow:0 8px 20px rgba(37,211,102,0.4);
+  transition:all 0.3s;
+}
+.btn-whatsapp:hover{
+  background:#20BA5A;
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(37,211,102,0.5);
+}
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:15px;
+  margin:20px 0;
+}
+.category-item{
+  background:#F5F5F5;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  border:2px solid #E0E0E0;
+}
+.category-item strong{
+  display:block;
+  color:#25D366;
+  font-size:18px;
+  margin-bottom:8px;
+}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <span style="font-size:24px">🌐</span>
+  <select id="langSelect" onchange="changeLanguage()">
+    <option value="en">English</option>
+    <option value="hi">हिन्दी (Hindi)</option>
+  </select>
+</div>
+
+<div class="container">
+  <div class="header">
+    
+    <h1 id="headerTitle">WhatsApp Bot</h1>
+    <p id="headerSubtitle">कंप्लेंट कैसे करें | How to Complain</p>
+  </div>
+
+  <!-- STEP 1: START -->
+<div class="step">
+  <div class="step-num">1</div>
+  <h2 id="step1Title">Start the Complaint Process</h2>
+
+  <p id="step1Intro" style="font-size:18px;line-height:1.8;margin-bottom:20px">
+    This WhatsApp bot is the <strong style="color:#25D366">easiest way</strong> to log a complaint related to issues with your store's products.
+  </p>
+
+  <div style="background:#FFF3CD;border-left:5px solid #FFC107;padding:20px;border-radius:10px;margin:20px 0">
+    <div style="font-size:20px;font-weight:bold;margin-bottom:10px" id="step1QuickProcess">⏱️ Quick Process</div>
+    <div style="font-size:16px" id="step1QuickProcessSub">Complete your complaint in just <strong>2 minutes</strong>!</div>
+  </div>
+
+  <p id="step1Message" style="font-size:17px;margin:20px 0">
+    The process starts with sending <strong>one simple message</strong> on WhatsApp.
+  </p>
+
+  <div style="background:#E3F2FD;padding:20px;border-radius:12px;margin:25px 0">
+    <div style="font-weight:bold;font-size:18px;color:#2196F3;margin-bottom:15px" id="step1TypeAny">
+      📝 You can type any of these:
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:15px">
+      <div style="background:white;padding:15px;border-radius:8px;text-align:center;font-weight:600;border:2px solid #25D366">Hi</div>
+      <div style="background:white;padding:15px;border-radius:8px;text-align:center;font-weight:600;border:2px solid #25D366">Hello</div>
+      <div style="background:white;padding:15px;border-radius:8px;text-align:center;font-weight:600;border:2px solid #25D366">Complaint</div>
+      <div style="background:white;padding:15px;border-radius:8px;text-align:center;font-weight:600;border:2px solid #25D366">Log complaint</div>
+    </div>
+  </div>
+
+ <strong id="tip1">✅ What happens next?</strong><br>
+<span id="tip1Sub">
+After your first message, the system will check if you are registered with the store.
+It will show your details and then ask you one step at a time to help you log a complaint.
+</span>
+
+
+  <!-- STEP 2: YOU'LL SEE THIS -->
+  <div class="step">
+    <div class="step-num">2</div>
+    <h2 id="step2Title">आपको यह दिखेगा | You Will See This</h2>
+
+    <div class="phone-mockup">
+      <div class="screen">
+        <div class="whatsapp-header">
+          <div style="width:35px;height:35px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">🏪</div>
+          <div>
+            <div style="font-weight:bold">VMM Complaint Bot</div>
+            <div style="font-size:12px;opacity:0.8">Online</div>
+          </div>
+        </div>
+        <div class="chat-bubble bot">
+          <strong>Hello! 👋</strong><br>
+          Name: RAJESH KUMAR<br>
+          Employee ID: VMM12345<br>
+          Store: Mumbai Central
+        </div>
+        <div class="chat-bubble bot">
+          Choose option:<br>
+          <strong>1</strong> - New Complaint<br>
+          <strong>2</strong> - Check Status<br>
+          <strong>3</strong> - Update Info
+        </div>
+      </div>
+    </div>
+
+    <div class="action-box green">
+      <span id="action2">✅ आपका नाम और स्टोर दिखेगा | Your name and store will show</span>
+    </div>
+  </div>
+
+  <!-- STEP 3: TYPE NUMBER -->
+  <div class="step">
+    <div class="step-num">3</div>
+    <h2 id="step3Title">नंबर टाइप करें | Type Number</h2>
+
+    <div class="icon">⌨️</div>
+
+    <div class="example-nums">
+      <div class="num-box">1</div>
+      <div class="num-box">2</div>
+      <div class="num-box">3</div>
+    </div>
+
+    <div class="action-box">
+      <span id="action3">👉 नई कंप्लेंट के लिए <strong>1</strong> टाइप करें<br>
+      👉 Type <strong>1</strong> for New Complaint</span>
+    </div>
+
+    <div class="phone-mockup">
+      <div class="screen">
+        <div class="whatsapp-header">
+          <div style="width:35px;height:35px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">🏪</div>
+          <div style="font-weight:bold">VMM Complaint Bot</div>
+        </div>
+        <div class="chat-bubble bot">
+          Choose option:<br>
+          <strong>1</strong> - New Complaint
+        </div>
+        <div class="chat-bubble user">
+          <strong style="font-size:28px">1</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: CHOOSE CATEGORY -->
+  <div class="step">
+    <div class="step-num">4</div>
+    <h2 id="step4Title">कैटेगरी चुनें | Choose Category</h2>
+
+    <div class="icon">🔧</div>
+
+    <div class="phone-mockup">
+      <div class="screen">
+        <div class="whatsapp-header">
+          <div style="width:35px;height:35px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">🏪</div>
+          <div style="font-weight:bold">VMM Complaint Bot</div>
+        </div>
+        <div class="chat-bubble bot">
+          Select Category:<br>
+          1 - Air Conditioner ❄️<br>
+          2 - Mechanical 🔧<br>
+          3 - Electrical ⚡<br>
+          4 - Carpentry 🚪<br>
+          5 - Safety Equipment 📹<br>
+          6 - Facility Equipment 🛒<br>
+          7 - Civil Work 🏗️<br>
+          8 - Fire Safety 🧯<br>
+          9 - Plumbing 🚰
+        </div>
+      </div>
+    </div>
+
+   
+
+    <div class="action-box">
+      <span id="action4">💡 जो खराब है उसका नंबर टाइप करें<br>
+      💡 Type number of broken item</span>
+    </div>
+
+    <div style="margin-top:30px;background:#F8F9FA;padding:20px;border-radius:12px">
+      <h3 style="color:#25D366;margin-bottom:20px;font-size:20px" id="categoryDetails">📋 Category में क्या आता है? | What's in Each Category?</h3>
+      
+      <div style="display:grid;gap:15px">
+        
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">❄️ 1 - Air Conditioner (AC)</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • AC<br>
+            • Server Room AC
+          </div>
+        </details>
+
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">🔧 2 - Mechanical</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • ACP<br>
+            • Glass / Glass Door<br>
+            • Mirror<br>
+            • Paint Work<br>
+            • Pest Control<br>
+            • Railing<br>
+            • Ramp<br>
+            • Shampoo Dispenser Machine<br>
+            • Shutter<br>
+            • Trolley
+          </div>
+        </details>
+
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">⚡ 3 - Electrical</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • Air Curtain<br>
+            • Amplifier<br>
+            • Electrical Panel<br>
+            • Exhaust Fan<br>
+            • Fan<br>
+            • Fly Catcher<br>
+            • Genset / Genset Battery<br>
+            • Glow Sign Board<br>
+            • LED Light / Lights / Track Light<br>
+            • Lift / Lift Battery<br>
+            • Mic<br>
+            • Music System<br>
+            • Servo<br>
+            • Speaker<br>
+            • Transformer<br>
+            • Weighing Scale<br>
+            • Mobile<br>
+            • Emergency Bulb<br>
+            • Electrical Pipe
+          </div>
+        </details>
+
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">🚪 4 - Carpentry</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • Baggage Rack<br>
+            • Cash Drawer<br>
+            • Chair<br>
+            • Door<br>
+            • Drawer<br>
+            • Table<br>
+            • Trial Room
+          </div>
+        </details>
+
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">📹 5 - Safety Equipment</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • Biometric System<br>
+            • CCTV<br>
+            • Digital Video Recorder (DVR)<br>
+            • Escalator<br>
+            • Safe Lock<br>
+            • Sensormatic<br>
+            • Lock
+          </div>
+        </details>
+
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">🛒 6 - Facility Equipment</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • Carpet
+          </div>
+        </details>
+
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">🏗️ 7 - Civil Work</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • Civil Work<br>
+            • Drainage<br>
+            • Roof<br>
+            • Stairs<br>
+            • Tiles<br>
+            • Wall<br>
+            • Nezam Test
+          </div>
+        </details>
+
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">🧯 8 - Fire Safety</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • Fire Alarm<br>
+            • Fire Extinguisher<br>
+            • Fire Panel<br>
+            • Smoke Detector<br>
+            • Fire Pump<br>
+            • Fire Sprinkler<br>
+            • Fire Exit Key Box<br>
+            • Fire Hydrant<br>
+            • Hose Reel<br>
+            • Fire Equipment<br>
+            • Fire Water Motor<br>
+            • Fire Water Tank<br>
+            • Hooter<br>
+            • Fire Exit Door<br>
+            • Fire Hooter
+          </div>
+        </details>
+
+        <details style="background:white;padding:15px;border-radius:8px;border:2px solid #E0E0E0;cursor:pointer">
+          <summary style="font-weight:bold;font-size:18px;color:#25D366">🚰 9 - Plumbing</summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E0E0E0">
+            • Submersible Pump<br>
+            • Washroom<br>
+            • Water Motor<br>
+            • Water Tank<br>
+            • Water Pipe
+          </div>
+        </details>
+
+      </div>
+    </div>
+
+    <div class="tip" style="margin-top:20px">
+      <strong id="categoryTip">💡 उदाहरण | Example:</strong><br>
+      <span id="categoryExample">
+      • AC खराब है → <strong>1</strong> टाइप करें (Air Conditioner)<br>
+      • Light नहीं जल रही → <strong>3</strong> टाइप करें (Electrical)<br>
+      • Door टूटा है → <strong>4</strong> टाइप करें (Carpentry)<br>
+      • CCTV काम नहीं कर रहा → <strong>5</strong> टाइप करें (Safety Equipment)
+      </span>
+    </div>
+  </div>
+
+  <!-- STEP 5: COMPLAINT TYPE -->
+  <div class="step">
+    <div class="step-num">5</div>
+    <h2 id="step5Title">प्रॉब्लम टाइप चुनें | Choose Problem Type</h2>
+
+    <div class="phone-mockup">
+      <div class="screen">
+        <div class="whatsapp-header">
+          <div style="width:35px;height:35px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">🏪</div>
+          <div style="font-weight:bold">VMM Complaint Bot</div>
+        </div>
+        <div class="chat-bubble bot">
+          Complaint Type:<br>
+          <strong>1</strong> - Not Working ❌<br>
+          <strong>2</strong> - Temperature Issue 🌡️<br>
+          <strong>3</strong> - Service Needed 🔧<br>
+          <strong>4</strong> - Part Broken 🔩<br>
+          <strong>5</strong> - Repair Needed 🛠️
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong id="tip5">आसान तरीका | Easy Way:</strong><br>
+      <span id="tip5Sub">• बिल्कुल बंद है = <strong>1</strong> (Not Working)<br>
+      • ठंडा नहीं हो रहा = <strong>2</strong> (Temperature)<br>
+      • टूटा है = <strong>5</strong> (Repair)</span>
+    </div>
+  </div>
+
+  <!-- STEP 6: LOCATION -->
+  <div class="step">
+    <div class="step-num">6</div>
+    <h2 id="step6Title">जगह बताएं | Tell Location</h2>
+
+    <div class="icon">📍</div>
+
+    <div class="phone-mockup">
+      <div class="screen">
+        <div class="whatsapp-header">
+          <div style="width:35px;height:35px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">🏪</div>
+          <div style="font-weight:bold">VMM Complaint Bot</div>
+        </div>
+        <div class="chat-bubble bot">
+          Where is the product?<br>
+          Example:<br>
+          "First Floor, Ladies Section"
+        </div>
+        <div class="chat-bubble user">
+          Ground Floor, Billing Counter
+        </div>
+      </div>
+    </div>
+
+    <div class="action-box">
+      <span id="action6">✍️ उदाहरण | Examples:<br>
+      • "Sales Floor"<br>
+      • "पहली मंजिल, बिलिंग काउंटर"<br>
+      • "Washroom"</span>
+    </div>
+  </div>
+
+  <!-- STEP 7: PHOTO -->
+  <div class="step">
+    <div class="step-num">7</div>
+    <h2 id="step7Title">फोटो भेजें (Optional) | Send Photo</h2>
+
+    <div class="icon">📸</div>
+
+    <div class="phone-mockup">
+      <div class="screen">
+        <div class="whatsapp-header">
+          <div style="width:35px;height:35px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">🏪</div>
+          <div style="font-weight:bold">VMM Complaint Bot</div>
+        </div>
+        <div class="chat-bubble bot">
+          Do you want to send photo?<br>
+          Reply: <strong>Yes</strong> or <strong>No</strong>
+        </div>
+        <div class="chat-bubble user">
+          Yes
+        </div>
+        <div class="chat-bubble bot">
+          📷 Please send 1 photo
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong id="tip7">📷 फोटो टिप्स | Photo Tips:</strong><br>
+      <span id="tip7Sub">✅ एक बार में 1 फोटो | One photo at a time<br>
+      ✅ साफ दिखे | Clear image<br>
+      ✅ ज्यादा से ज्यादा 3 फोटो | Maximum 3 photos</span>
+    </div>
+  </div>
+
+  <!-- STEP 8: REMARKS -->
+  <div class="step">
+    <div class="step-num">8</div>
+    <h2 id="step8Title">प्रॉब्लम बताएं | Describe Problem</h2>
+
+    <div class="phone-mockup">
+      <div class="screen">
+        <div class="whatsapp-header">
+          <div style="width:35px;height:35px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">🏪</div>
+          <div style="font-weight:bold">VMM Complaint Bot</div>
+        </div>
+        <div class="chat-bubble bot">
+          Please describe the problem
+        </div>
+        <div class="chat-bubble user">
+          AC making loud noise and not cooling since morning
+        </div>
+      </div>
+    </div>
+
+    <div class="action-box green">
+      <span id="action8">✍️ अपनी भाषा में लिखें | Write in your language:<br>
+      "AC से आवाज आ रही है और ठंडा नहीं हो रहा"</span>
+    </div>
+  </div>
+
+  <!-- STEP 9: DONE -->
+  <div class="step">
+    <div class="step-num">✓</div>
+    <h2 id="step9Title">हो गया! कंप्लेंट सबमिट | Done! Complaint Submitted</h2>
+
+    <div class="icon">✅</div>
+
+    <div class="phone-mockup">
+      <div class="screen">
+        <div class="whatsapp-header">
+          <div style="width:35px;height:35px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">🏪</div>
+          <div style="font-weight:bold">VMM Complaint Bot</div>
+        </div>
+        <div class="chat-bubble bot" style="background:#D4EDDA">
+          ✅ <strong>Complaint Submitted!</strong><br><br>
+          🎫 Ticket ID: <strong>VMM202401234</strong><br>
+          📧 Email sent with details<br>
+          ⏰ You will get update soon
+        </div>
+      </div>
+    </div>
+
+    <div class="action-box green">
+      <span id="action9">✅ टिकट नंबर याद रखें | Remember Ticket Number<br>
+      ✅ ईमेल में भी मिलेगा | You'll get email too</span>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="step" style="background:#F0F9FF;text-align:center">
+    <div style="font-size:80px;margin:20px 0">🎉</div>
+    <h2 id="finalTitle" style="font-size:32px;color:#25D366">अब आप तैयार हैं!<br>You Are Ready!</h2>
+    
+    <a href="https://wa.me/918800600155?text=Hi" class="btn-whatsapp" target="_blank">
+      <span style="font-size:35px;margin-right:10px">📱</span>
+      <span id="btnStart">अभी शुरू करें | Start Now</span>
+    </a>
+
+    <div class="tip" style="max-width:500px;margin:30px auto">
+      <strong id="remember">📝 याद रखें | Remember:</strong><br>
+      <span id="rememberList">
+      ✅ सिर्फ नंबर टाइप करें | Only type numbers<br>
+      ✅ एक बार में 1 फोटो | One photo at a time<br>
+      ✅ टिकट ID संभाल कर रखें | Keep Ticket ID safe
+      </span>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:20px;color:#666;font-size:14px">
+  <div id="footer">Vishal Mega Mart | Powered by Open Mind Services</div>
+</div>
+
+<script>
+const translations = {
+  en: {
+    headerTitle: "WhatsApp Bot",
+    headerSubtitle: "How to File a Complaint",
+    step1Title: "Start the Complaint Process",
+    step1Intro: "This WhatsApp bot is the <strong style='color:#25D366'>easiest way</strong> to log a complaint related to issues with your store's products.",
+    step1QuickProcess: "⏱️ Quick Process",
+    step1QuickProcessSub: "Complete your complaint in just <strong>2 minutes</strong>!",
+    step1Message: "The process starts with sending <strong>one simple message</strong> on WhatsApp.",
+    step1TypeAny: "📝 You can type any of these:",
+    tip1: "✅ What happens next?",
+    tip1Sub: "After sending the message, the bot will guide you <strong>step by step</strong> through the complaint process.",
+    step2Title: "You Will See This",
+    action2: "✅ Your name and store will show automatically",
+    step3Title: "Type Number",
+    action3: "👉 Type <strong>1</strong> for New Complaint",
+    step4Title: "Choose Category",
+    action4: "💡 Type number of the broken equipment",
+    categoryDetails: "📋 What's in Each Category?",
+    categoryTip: "💡 Example:",
+    categoryExample: "• AC not working → Type <strong>1</strong> (Air Conditioner)<br>• Light not working → Type <strong>3</strong> (Electrical)<br>• Door broken → Type <strong>4</strong> (Carpentry)<br>• CCTV not working → Type <strong>5</strong> (Safety Equipment)",
+    step5Title: "Choose Problem Type",
+    tip5: "Easy Way:",
+    tip5Sub: "• Completely stopped = <strong>1</strong> (Not Working)<br>• Not cooling/heating = <strong>2</strong> (Temperature)<br>• Broken/damaged = <strong>5</strong> (Repair)",
+    step6Title: "Tell Location",
+    action6: "✏️ Examples:<br>• \"Sales Floor\"<br>• \"First Floor, Billing Counter\"<br>• \"Washroom\"",
+    step7Title: "Send Photo (Optional)",
+    tip7: "📷 Photo Tips:",
+    tip7Sub: "✅ One photo at a time<br>✅ Clear image<br>✅ Maximum 3 photos",
+    step8Title: "Describe Problem",
+    action8: "✏️ Write in your own words",
+    step9Title: "Done! Complaint Submitted",
+    action9: "✅ Remember Ticket Number<br>✅ You'll get email confirmation",
+    finalTitle: "You Are Ready!",
+    btnStart: "Start Now",
+    remember: "📝 Remember:",
+    rememberList: "✅ Only type numbers for options<br>✅ One photo at a time<br>✅ Keep Ticket ID safe",
+    footer: "Vishal Mega Mart | Powered by Open Mind Services"
+  },
+  hi: {
+    headerTitle: "WhatsApp बॉट",
+    headerSubtitle: "कंप्लेंट कैसे करें",
+    step1Title: "कंप्लेंट प्रोसेस शुरू करें",
+    step1Intro: "यह WhatsApp बॉट आपके स्टोर के प्रोडक्ट से जुड़ी समस्याओं की कंप्लेंट दर्ज करने का <strong style='color:#25D366'>सबसे आसान तरीका</strong> है।",
+    step1QuickProcess: "⏱️ तेज प्रोसेस",
+    step1QuickProcessSub: "सिर्फ <strong>2 मिनट</strong> में अपनी कंप्लेंट पूरी करें!",
+    step1Message: "यह प्रोसेस WhatsApp पर <strong>एक सिंपल मैसेज</strong> भेजने से शुरू होता है।",
+    step1TypeAny: "📝 आप इनमें से कुछ भी टाइप कर सकते हैं:",
+    tip1: "✅ आगे क्या होगा?",
+    tip1Sub: "मैसेज भेजने के बाद, बॉट आपको <strong>स्टेप बाय स्टेप</strong> कंप्लेंट प्रोसेस के बारे में बताएगा।",
+    step2Title: "आपको यह दिखेगा",
+    action2: "✅ आपका नाम और स्टोर अपने आप दिखेगा",
+    step3Title: "नंबर टाइप करें",
+    action3: "👉 नई कंप्लेंट के लिए <strong>1</strong> टाइप करें",
+    step4Title: "कैटेगरी चुनें",
+    action4: "💡 जो खराब है उसका नंबर टाइप करें",
+    categoryDetails: "📋 हर Category में क्या आता है?",
+    categoryTip: "💡 उदाहरण:",
+    categoryExample: "• AC खराब है → <strong>1</strong> टाइप करें (Air Conditioner)<br>• Light नहीं जल रही → <strong>3</strong> टाइप करें (Electrical)<br>• Door टूटा है → <strong>4</strong> टाइप करें (Carpentry)<br>• CCTV काम नहीं कर रहा → <strong>5</strong> टाइप करें (Safety Equipment)",
+    step5Title: "प्रॉब्लम टाइप चुनें",
+    tip5: "आसान तरीका:",
+    tip5Sub: "• बिल्कुल बंद है = <strong>1</strong> (Not Working)<br>• ठंडा नहीं हो रहा = <strong>2</strong> (Temperature)<br>• टूटा है = <strong>5</strong> (Repair)",
+    step6Title: "जगह बताएं",
+    action6: "✏️ उदाहरण:<br>• \"Sales Floor\"<br>• \"पहली मंजिल, बिलिंग काउंटर\"<br>• \"Washroom\"",
+    step7Title: "फोटो भेजें (ऑप्शनल)",
+    tip7: "📷 फोटो टिप्स:",
+    tip7Sub: "✅ एक बार में 1 फोटो<br>✅ साफ दिखे<br>✅ ज्यादा से ज्यादा 3 फोटो",
+    step8Title: "प्रॉब्लम बताएं",
+    action8: "✏️ अपनी भाषा में लिखें",
+    step9Title: "हो गया! कंप्लेंट सबमिट",
+    action9: "✅ टिकट नंबर याद रखें<br>✅ ईमेल भी मिलेगा",
+    finalTitle: "अब आप तैयार हैं!",
+    btnStart: "अभी शुरू करें",
+    remember: "📝 याद रखें:",
+    rememberList: "✅ सिर्फ नंबर टाइप करें<br>✅ एक बार में 1 फोटो<br>✅ टिकट ID संभाल कर रखें",
+    footer: "विशाल मेगा मार्ट | Open Mind Services द्वारा संचालित"
+  }
+};
+
+function changeLanguage() {
+  const lang = document.getElementById('langSelect').value;
+  const t = translations[lang];
+  
+  document.getElementById('headerTitle').textContent = t.headerTitle;
+  document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
+  document.getElementById('step1Title').textContent = t.step1Title;
+  document.getElementById('step1Intro').innerHTML = t.step1Intro;
+  document.getElementById('step1QuickProcess').innerHTML = t.step1QuickProcess;
+  document.getElementById('step1QuickProcessSub').innerHTML = t.step1QuickProcessSub;
+  document.getElementById('step1Message').innerHTML = t.step1Message;
+  document.getElementById('step1TypeAny').innerHTML = t.step1TypeAny;
+  document.getElementById('tip1').textContent = t.tip1;
+  document.getElementById('tip1Sub').innerHTML = t.tip1Sub;
+  document.getElementById('step2Title').textContent = t.step2Title;
+  document.getElementById('action2').textContent = t.action2;
+  document.getElementById('step3Title').textContent = t.step3Title;
+  document.getElementById('action3').innerHTML = t.action3;
+  document.getElementById('step4Title').textContent = t.step4Title;
+  document.getElementById('action4').textContent = t.action4;
+  document.getElementById('categoryDetails').textContent = t.categoryDetails;
+  document.getElementById('categoryTip').textContent = t.categoryTip;
+  document.getElementById('categoryExample').innerHTML = t.categoryExample;
+  document.getElementById('step5Title').textContent = t.step5Title;
+  document.getElementById('tip5').textContent = t.tip5;
+  document.getElementById('tip5Sub').innerHTML = t.tip5Sub;
+  document.getElementById('step6Title').textContent = t.step6Title;
+  document.getElementById('action6').innerHTML = t.action6;
+  document.getElementById('step7Title').textContent = t.step7Title;
+  document.getElementById('tip7').textContent = t.tip7;
+  document.getElementById('tip7Sub').innerHTML = t.tip7Sub;
+  document.getElementById('step8Title').textContent = t.step8Title;
+  document.getElementById('action8').textContent = t.action8;
+  document.getElementById('step9Title').textContent = t.step9Title;
+  document.getElementById('action9').innerHTML = t.action9;
+  document.getElementById('finalTitle').innerHTML = t.finalTitle;
+  document.getElementById('btnStart').textContent = t.btnStart;
+  document.getElementById('remember').textContent = t.remember;
+  document.getElementById('rememberList').innerHTML = t.rememberList;
+  document.getElementById('footer').textContent = t.footer;
+}
+</script>
+
+</body>
+</html>
